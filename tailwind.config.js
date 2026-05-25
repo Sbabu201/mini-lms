@@ -1,0 +1,61 @@
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    "./app/**/*.{js,jsx,ts,tsx}",
+    "./src/**/*.{js,jsx,ts,tsx}",
+  ],
+  presets: [require("nativewind/preset")],
+  theme: {
+    extend: {
+      colors: {
+        primary: {
+          50: '#EEE5FF',
+          100: '#D4C0FF',
+          200: '#B794FF',
+          300: '#9A68FF',
+          400: '#8347FF',
+          500: '#6C2BF5',
+          600: '#5A1FDB',
+          700: '#4816B0',
+          800: '#371085',
+          900: '#260C5A',
+        },
+        accent: {
+          50: '#E0F7FF',
+          100: '#B3ECFF',
+          200: '#80DFFF',
+          300: '#4DD2FF',
+          400: '#26C8FF',
+          500: '#00BFFF',
+          600: '#00A3DB',
+          700: '#0087B7',
+          800: '#006B93',
+          900: '#004F6F',
+        },
+        dark: {
+          50: '#E8E6EF',
+          100: '#C5C1D6',
+          200: '#9F99BD',
+          300: '#7971A3',
+          400: '#5D5490',
+          500: '#41377D',
+          600: '#3B3175',
+          700: '#322A6A',
+          800: '#2A2360',
+          900: '#1C164D',
+          950: '#0F0D23',
+        },
+        success: '#10B981',
+        warning: '#F59E0B',
+        error: '#EF4444',
+      },
+      fontFamily: {
+        'inter-regular': ['Inter_400Regular'],
+        'inter-medium': ['Inter_500Medium'],
+        'inter-semibold': ['Inter_600SemiBold'],
+        'inter-bold': ['Inter_700Bold'],
+      },
+    },
+  },
+  plugins: [],
+};
