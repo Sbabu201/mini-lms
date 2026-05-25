@@ -86,8 +86,8 @@ export default function ProfileScreen() {
   }, []);
 
   const stats = [
-    { label: 'Enrolled', value: courseState.enrolledIds.length, icon: 'school-outline' as const, color: '#8347FF' },
-    { label: 'Bookmarked', value: courseState.bookmarkedIds.length, icon: 'bookmark-outline' as const, color: '#00BFFF' },
+    { label: 'Enrolled', value: courseState.enrolledIds.length, icon: 'school-outline' as const, color: '#17B07E' },
+    { label: 'Bookmarked', value: courseState.bookmarkedIds.length, icon: 'bookmark-outline' as const, color: '#FFA520' },
     { label: 'Progress', value: `${courseState.enrolledIds.length > 0 ? Math.round((courseState.enrolledIds.length / Math.max(courseState.courses.length, 1)) * 100) : 0}%`, icon: 'trending-up-outline' as const, color: '#10B981' },
   ];
 
@@ -146,7 +146,7 @@ export default function ProfileScreen() {
               className="flex-row items-center bg-dark-800 rounded-2xl px-4 py-4 mb-2 border border-dark-700"
               activeOpacity={0.7}
             >
-              <Ionicons name={item.icon} size={22} color="#9F99BD" />
+              <Ionicons name={item.icon} size={22} color="#6B7D96" />
               <View className="ml-3 flex-1">
                 <Text className="text-white text-base font-inter-medium">{item.label}</Text>
                 {item.subtitle && (
@@ -158,7 +158,7 @@ export default function ProfileScreen() {
                   <View className={`w-5 h-5 rounded-full bg-white ${preferences.notificationsEnabled ? 'self-end' : 'self-start'}`} />
                 </View>
               ) : item.showChevron ? (
-                <Ionicons name="chevron-forward" size={18} color="#5D5490" />
+                <Ionicons name="chevron-forward" size={18} color="#4B5E78" />
               ) : null}
             </TouchableOpacity>
           ))}

@@ -15,7 +15,7 @@
       [
         "expo-splash-screen",
         {
-          "backgroundColor": "#0F0D23",
+          "backgroundColor": "#0D1321",
           "image": "./assets/icon.png",
           "imageWidth": 200
         }
@@ -28,7 +28,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
-        "backgroundColor": "#0F0D23"
+        "backgroundColor": "#0D1321"
       },
       "package": "com.learnhub.miniapp",
       "permissions": [

@@ -27,8 +27,8 @@ export function generateCourseContentHTML(course: {
     
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: #0F0D23;
-      color: #E8E6EF;
+      background: #0D1321;
+      color: #E6E9EF;
       padding: 24px 20px;
       line-height: 1.6;
     }
@@ -39,8 +39,8 @@ export function generateCourseContentHTML(course: {
 
     .category {
       display: inline-block;
-      background: rgba(131, 71, 255, 0.2);
-      color: #B794FF;
+      background: rgba(23, 176, 126, 0.2);
+      color: #3BCD9A;
       padding: 4px 12px;
       border-radius: 20px;
       font-size: 12px;
@@ -69,15 +69,15 @@ export function generateCourseContentHTML(course: {
       align-items: center;
       gap: 4px;
       font-size: 13px;
-      color: #9F99BD;
+      color: #6B7D96;
     }
 
     .instructor {
       display: flex;
       align-items: center;
       gap: 12px;
-      background: rgba(50, 42, 106, 0.5);
-      border: 1px solid rgba(93, 84, 144, 0.3);
+      background: rgba(27, 36, 54, 0.8);
+      border: 1px solid rgba(35, 46, 68, 0.5);
       border-radius: 16px;
       padding: 16px;
       margin-bottom: 24px;
@@ -98,7 +98,7 @@ export function generateCourseContentHTML(course: {
 
     .instructor-info p {
       font-size: 12px;
-      color: #9F99BD;
+      color: #6B7D96;
     }
 
     .section {
@@ -111,12 +111,12 @@ export function generateCourseContentHTML(course: {
       color: #FFFFFF;
       margin-bottom: 12px;
       padding-bottom: 8px;
-      border-bottom: 1px solid rgba(93, 84, 144, 0.3);
+      border-bottom: 1px solid rgba(35, 46, 68, 0.5);
     }
 
     .section p {
       font-size: 14px;
-      color: #C5C1D6;
+      color: #95A3B8;
       line-height: 1.8;
     }
 
@@ -125,8 +125,8 @@ export function generateCourseContentHTML(course: {
       align-items: center;
       gap: 12px;
       padding: 14px 16px;
-      background: rgba(50, 42, 106, 0.3);
-      border: 1px solid rgba(93, 84, 144, 0.2);
+      background: rgba(27, 36, 54, 0.5);
+      border: 1px solid rgba(35, 46, 68, 0.3);
       border-radius: 12px;
       margin-bottom: 8px;
       cursor: pointer;
@@ -135,7 +135,7 @@ export function generateCourseContentHTML(course: {
 
     .syllabus-item:active {
       transform: scale(0.98);
-      background: rgba(131, 71, 255, 0.15);
+      background: rgba(23, 176, 126, 0.15);
     }
 
     .syllabus-item.completed {
@@ -147,8 +147,8 @@ export function generateCourseContentHTML(course: {
       width: 28px;
       height: 28px;
       border-radius: 50%;
-      background: rgba(131, 71, 255, 0.3);
-      color: #B794FF;
+      background: rgba(23, 176, 126, 0.3);
+      color: #3BCD9A;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -164,14 +164,14 @@ export function generateCourseContentHTML(course: {
 
     .syllabus-text {
       font-size: 14px;
-      color: #E8E6EF;
+      color: #E6E9EF;
       font-weight: 500;
     }
 
     .syllabus-duration {
       margin-left: auto;
       font-size: 12px;
-      color: #7971A3;
+      color: #4B5E78;
     }
 
     .image-gallery {
@@ -216,18 +216,18 @@ export function generateCourseContentHTML(course: {
     }
 
     .btn-bookmark {
-      background: rgba(131, 71, 255, 0.2);
-      color: #B794FF;
-      border: 1px solid rgba(131, 71, 255, 0.3);
+      background: rgba(23, 176, 126, 0.2);
+      color: #3BCD9A;
+      border: 1px solid rgba(23, 176, 126, 0.3);
     }
 
     .btn-bookmark.active {
-      background: rgba(131, 71, 255, 0.4);
+      background: rgba(23, 176, 126, 0.4);
       color: #FFFFFF;
     }
 
     .btn-enroll {
-      background: #6C2BF5;
+      background: #17B07E;
       color: #FFFFFF;
     }
 
@@ -238,8 +238,8 @@ export function generateCourseContentHTML(course: {
 
     /* ── Native Headers Banner ─────────────────────────── */
     .headers-banner {
-      background: rgba(50, 42, 106, 0.5);
-      border: 1px solid rgba(93, 84, 144, 0.3);
+      background: rgba(27, 36, 54, 0.8);
+      border: 1px solid rgba(35, 46, 68, 0.5);
       border-radius: 12px;
       padding: 14px 16px;
       margin-bottom: 24px;
@@ -249,7 +249,7 @@ export function generateCourseContentHTML(course: {
     .headers-banner h3 {
       font-size: 13px;
       font-weight: 700;
-      color: #B794FF;
+      color: #3BCD9A;
       margin-bottom: 8px;
     }
 
@@ -260,12 +260,12 @@ export function generateCourseContentHTML(course: {
     }
 
     .header-key {
-      color: #9F99BD;
+      color: #6B7D96;
       font-family: monospace;
     }
 
     .header-value {
-      color: #E8E6EF;
+      color: #E6E9EF;
       font-family: monospace;
     }
 
@@ -296,9 +296,9 @@ export function generateCourseContentHTML(course: {
       text-align: center;
       padding: 20px 0;
       margin-top: 20px;
-      border-top: 1px solid rgba(93, 84, 144, 0.2);
+      border-top: 1px solid rgba(35, 46, 68, 0.3);
       font-size: 12px;
-      color: #5D5490;
+      color: #4B5E78;
     }
   </style>
 </head>
@@ -423,7 +423,7 @@ export function generateCourseContentHTML(course: {
         }
         container.innerHTML = html;
       } else {
-        container.innerHTML = '<span style="color: #5D5490;">No native headers received</span>';
+        container.innerHTML = '<span style="color: #4B5E78;">No native headers received</span>';
       }
 
       // Update button states from native context

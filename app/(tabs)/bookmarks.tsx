@@ -53,7 +53,7 @@ export default function BookmarksScreen() {
           />
         }
         refreshControl={
-          <RefreshControl refreshing={state.isRefreshing} onRefresh={refreshCourses} tintColor="#8347FF" colors={['#8347FF']} progressBackgroundColor="#1C164D" />
+          <RefreshControl refreshing={state.isRefreshing} onRefresh={refreshCourses} tintColor="#17B07E" colors={['#17B07E']} progressBackgroundColor="#141C2B" />
         }
         estimatedItemSize={340}
         recycleItems

@@ -17,7 +17,7 @@ export function Badge({
   const variantClasses = {
     primary: 'bg-primary-500/20',
     success: 'bg-green-500/20',
-    warning: 'bg-yellow-500/20',
+    warning: 'bg-accent-500/20',
     info: 'bg-accent-500/20',
     default: 'bg-dark-600',
   };
@@ -25,7 +25,7 @@ export function Badge({
   const textVariantClasses = {
     primary: 'text-primary-300',
     success: 'text-green-400',
-    warning: 'text-yellow-400',
+    warning: 'text-accent-400',
     info: 'text-accent-400',
     default: 'text-dark-200',
   };

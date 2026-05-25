@@ -16,7 +16,7 @@ export function LoadingSpinner({
     return (
       <View className="flex-1 items-center justify-center bg-dark-950">
         <View className="items-center">
-          <ActivityIndicator size={size} color="#8347FF" />
+          <ActivityIndicator size={size} color="#17B07E" />
           {message && (
             <Text className="text-dark-200 text-sm font-inter-regular mt-4">
               {message}
@@ -29,7 +29,7 @@ export function LoadingSpinner({
 
   return (
     <View className="items-center justify-center py-8">
-      <ActivityIndicator size={size} color="#8347FF" />
+      <ActivityIndicator size={size} color="#17B07E" />
       {message && (
         <Text className="text-dark-200 text-sm font-inter-regular mt-3">
           {message}

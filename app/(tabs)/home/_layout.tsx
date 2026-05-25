@@ -6,7 +6,7 @@ export default function HomeLayout() {
     <Stack
       screenOptions={{
         headerShown: false,
-        contentStyle: { backgroundColor: '#0F0D23' },
+        contentStyle: { backgroundColor: '#0D1321' },
         animation: 'slide_from_right',
       }}
     />

@@ -50,7 +50,7 @@ export function Input({
           <Ionicons
             name={icon}
             size={20}
-            color={error ? '#EF4444' : isFocused ? '#8347FF' : '#9F99BD'}
+            color={error ? '#EF4444' : isFocused ? '#17B07E' : '#6B7D96'}
             style={{ marginRight: 12 }}
           />
         )}
@@ -58,7 +58,7 @@ export function Input({
           value={value}
           onChangeText={onChangeText}
           placeholder={placeholder}
-          placeholderTextColor="#5D5490"
+          placeholderTextColor="#4B5E78"
           secureTextEntry={secureTextEntry && !isPasswordVisible}
           keyboardType={keyboardType}
           autoCapitalize={autoCapitalize}
@@ -75,7 +75,7 @@ export function Input({
             <Ionicons
               name={isPasswordVisible ? 'eye-off-outline' : 'eye-outline'}
               size={20}
-              color="#9F99BD"
+              color="#6B7D96"
             />
           </TouchableOpacity>
         )}

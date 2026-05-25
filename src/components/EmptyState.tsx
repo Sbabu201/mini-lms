@@ -13,7 +13,7 @@ export function EmptyState({ icon, title, message, action }: EmptyStateProps) {
   return (
     <View className="flex-1 items-center justify-center px-8 py-16">
       <View className="w-20 h-20 rounded-full bg-dark-800 items-center justify-center mb-6">
-        <Ionicons name={icon} size={36} color="#8347FF" />
+        <Ionicons name={icon} size={36} color="#17B07E" />
       </View>
       <Text className="text-white text-xl font-inter-bold text-center mb-2">
         {title}

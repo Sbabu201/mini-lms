@@ -41,12 +41,12 @@ export function SearchBar({
 
   return (
     <View className="flex-row items-center bg-dark-800 rounded-2xl mx-4 px-4 border border-dark-700">
-      <Ionicons name="search-outline" size={20} color="#9F99BD" />
+      <Ionicons name="search-outline" size={20} color="#6B7D96" />
       <TextInput
         value={localValue}
         onChangeText={handleChange}
         placeholder={placeholder}
-        placeholderTextColor="#5D5490"
+        placeholderTextColor="#4B5E78"
         className="flex-1 text-white text-base font-inter-regular py-3 ml-3"
         returnKeyType="search"
         autoCorrect={false}
@@ -56,7 +56,7 @@ export function SearchBar({
           onPress={handleClear}
           hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
         >
-          <Ionicons name="close-circle" size={20} color="#9F99BD" />
+          <Ionicons name="close-circle" size={20} color="#6B7D96" />
         </TouchableOpacity>
       )}
     </View>

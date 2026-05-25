@@ -1,11 +1,10 @@
-import React, { useMemo, useCallback, useRef } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import {
   View,
   Text,
   ScrollView,
   TouchableOpacity,
   Alert,
-  Dimensions,
 } from 'react-native';
 import { useLocalSearchParams, router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -21,8 +20,6 @@ import {
   formatCount,
   getCategoryLabel,
 } from '../../../src/utils/helpers';
-
-const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 export default function CourseDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -90,39 +87,40 @@ export default function CourseDetailScreen() {
 
   return (
     <SafeAreaView className="flex-1 bg-dark-950" edges={['top']}>
+      {/* ── Fixed Header Bar ── */}
+      <View className="flex-row items-center justify-between px-4 py-3 border-b border-dark-800">
+        <TouchableOpacity
+          onPress={() => router.back()}
+          className="w-10 h-10 rounded-full bg-dark-800 items-center justify-center"
+        >
+          <Ionicons name="arrow-back" size={22} color="#FFFFFF" />
+        </TouchableOpacity>
+        <Text className="text-white text-lg font-inter-semibold flex-1 mx-3" numberOfLines={1}>
+          {course.title}
+        </Text>
+        <TouchableOpacity
+          onPress={handleBookmark}
+          className="w-10 h-10 rounded-full bg-dark-800 items-center justify-center"
+        >
+          <Ionicons
+            name={isBookmarked ? 'bookmark' : 'bookmark-outline'}
+            size={20}
+            color={isBookmarked ? '#17B07E' : '#FFFFFF'}
+          />
+        </TouchableOpacity>
+      </View>
+
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 100 }}
       >
-        {/* Header Image */}
-        <View className="relative">
-          <Image
-            source={{ uri: course.images[0] ?? course.thumbnail }}
-            className="w-full h-64"
-            contentFit="cover"
-            transition={300}
-          />
-
-          {/* Back Button */}
-          <TouchableOpacity
-            onPress={() => router.back()}
-            className="absolute top-4 left-4 w-10 h-10 rounded-full bg-dark-950/70 items-center justify-center"
-          >
-            <Ionicons name="arrow-back" size={22} color="#FFFFFF" />
-          </TouchableOpacity>
-
-          {/* Bookmark Button */}
-          <TouchableOpacity
-            onPress={handleBookmark}
-            className="absolute top-4 right-4 w-10 h-10 rounded-full bg-dark-950/70 items-center justify-center"
-          >
-            <Ionicons
-              name={isBookmarked ? 'bookmark' : 'bookmark-outline'}
-              size={22}
-              color={isBookmarked ? '#8347FF' : '#FFFFFF'}
-            />
-          </TouchableOpacity>
-        </View>
+        {/* Hero Image */}
+        <Image
+          source={{ uri: course.images[0] ?? course.thumbnail }}
+          className="w-full h-56"
+          contentFit="cover"
+          transition={300}
+        />
 
         <View className="px-5 pt-5">
           {/* Category & Rating */}
@@ -133,8 +131,8 @@ export default function CourseDetailScreen() {
               size="md"
             />
             <View className="flex-row items-center">
-              <Ionicons name="star" size={16} color="#F59E0B" />
-              <Text className="text-yellow-400 text-base font-inter-bold ml-1">
+              <Ionicons name="star" size={16} color="#FFA520" />
+              <Text className="text-accent-400 text-base font-inter-bold ml-1">
                 {formatRating(course.rating)}
               </Text>
               <Text className="text-dark-400 text-sm font-inter-regular ml-1">
@@ -176,7 +174,7 @@ export default function CourseDetailScreen() {
           {/* Stats Grid */}
           <View className="flex-row mb-5">
             <View className="flex-1 bg-dark-800 rounded-2xl p-4 mr-2 items-center border border-dark-700">
-              <Ionicons name="people" size={24} color="#8347FF" />
+              <Ionicons name="people" size={24} color="#17B07E" />
               <Text className="text-white text-lg font-inter-bold mt-2">
                 {formatCount(course.studentsEnrolled)}
               </Text>
@@ -185,7 +183,7 @@ export default function CourseDetailScreen() {
               </Text>
             </View>
             <View className="flex-1 bg-dark-800 rounded-2xl p-4 mx-1 items-center border border-dark-700">
-              <Ionicons name="time" size={24} color="#00BFFF" />
+              <Ionicons name="time" size={24} color="#FFA520" />
               <Text className="text-white text-lg font-inter-bold mt-2">
                 4.5h
               </Text>

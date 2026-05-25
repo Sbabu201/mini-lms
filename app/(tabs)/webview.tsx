@@ -46,10 +46,6 @@ export default function WebViewScreen() {
 
   const html = useMemo(() => generateCourseContentHTML(courseData), [courseData]);
 
-  /**
-   * Custom headers injected into the WebView as JavaScript before content loads.
-   * This demonstrates Native → WebView communication via "headers" (injected context).
-   */
   const injectedHeaders = useMemo(() => {
     const headers = {
       'X-App-Name': 'LearnHub',
@@ -72,10 +68,6 @@ export default function WebViewScreen() {
     `;
   }, [params.courseId, isBookmarked, isEnrolled]);
 
-  /**
-   * Handles messages from WebView → Native.
-   * Supports multiple message types for bidirectional communication.
-   */
   const handleMessage = useCallback((event: WebViewMessageEvent) => {
     try {
       const data = JSON.parse(event.nativeEvent.data) as {
@@ -85,48 +77,32 @@ export default function WebViewScreen() {
 
       switch (data.type) {
         case 'WEBVIEW_READY':
-          // WebView is ready — send initial status
           webViewRef.current?.postMessage(
-            JSON.stringify({
-              type: 'UPDATE_STATUS',
-              message: '✅ Connected to LearnHub',
-            })
+            JSON.stringify({ type: 'UPDATE_STATUS', message: '✅ Connected to LearnHub' })
           );
           break;
-
         case 'TOGGLE_BOOKMARK':
           if (courseId) {
             Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
             toggleBookmark(courseId);
             webViewRef.current?.postMessage(
-              JSON.stringify({
-                type: 'BOOKMARK_UPDATED',
-                isBookmarked: !isBookmarked,
-              })
+              JSON.stringify({ type: 'BOOKMARK_UPDATED', isBookmarked: !isBookmarked })
             );
           }
           break;
-
         case 'TOGGLE_ENROLL':
           if (courseId) {
             Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
             toggleEnroll(courseId);
             webViewRef.current?.postMessage(
-              JSON.stringify({
-                type: 'ENROLL_UPDATED',
-                isEnrolled: !isEnrolled,
-              })
+              JSON.stringify({ type: 'ENROLL_UPDATED', isEnrolled: !isEnrolled })
             );
           }
           break;
-
         case 'MARK_COMPLETE':
           Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
           webViewRef.current?.postMessage(
-            JSON.stringify({
-              type: 'UPDATE_STATUS',
-              message: '🎉 Section marked as complete!',
-            })
+            JSON.stringify({ type: 'UPDATE_STATUS', message: '🎉 Section marked as complete!' })
           );
           break;
       }
@@ -135,10 +111,6 @@ export default function WebViewScreen() {
     }
   }, [courseId, isBookmarked, isEnrolled, toggleBookmark, toggleEnroll]);
 
-  /**
-   * Sends a native status update to the WebView.
-   * Demonstrates Native → WebView communication via postMessage.
-   */
   const sendNativeUpdate = useCallback(() => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     webViewRef.current?.postMessage(
@@ -163,7 +135,7 @@ export default function WebViewScreen() {
         </View>
         <View className="flex-1 items-center justify-center px-8">
           <View className="w-20 h-20 rounded-full bg-dark-800 items-center justify-center mb-6">
-            <Ionicons name="reader-outline" size={36} color="#8347FF" />
+            <Ionicons name="reader-outline" size={36} color="#17B07E" />
           </View>
           <Text className="text-white text-xl font-inter-bold text-center mb-2">
             No Content Selected
@@ -184,7 +156,7 @@ export default function WebViewScreen() {
 
   return (
     <SafeAreaView className="flex-1 bg-dark-950" edges={['top']}>
-      {/* Header with native controls */}
+      {/* Header */}
       <View className="flex-row items-center px-4 py-3 border-b border-dark-800">
         <TouchableOpacity onPress={() => router.back()} className="mr-3">
           <Ionicons name="arrow-back" size={24} color="#FFFFFF" />
@@ -192,13 +164,12 @@ export default function WebViewScreen() {
         <Text className="text-white text-lg font-inter-semibold flex-1" numberOfLines={1}>
           {courseData.title}
         </Text>
-        {/* Native → WebView: Send status update button */}
         <TouchableOpacity
           onPress={sendNativeUpdate}
           className="ml-2 w-9 h-9 rounded-full bg-dark-800 items-center justify-center"
           hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
         >
-          <Ionicons name="sync-outline" size={18} color="#8347FF" />
+          <Ionicons name="sync-outline" size={18} color="#17B07E" />
         </TouchableOpacity>
       </View>
 
@@ -220,7 +191,7 @@ export default function WebViewScreen() {
         <View className="flex-1">
           {isLoading && (
             <View className="absolute inset-0 items-center justify-center z-10 bg-dark-950">
-              <ActivityIndicator size="large" color="#8347FF" />
+              <ActivityIndicator size="large" color="#17B07E" />
               <Text className="text-dark-300 text-sm mt-3">Loading content...</Text>
             </View>
           )}
@@ -236,7 +207,7 @@ export default function WebViewScreen() {
             javaScriptEnabled
             domStorageEnabled
             originWhitelist={['*']}
-            style={{ backgroundColor: '#0F0D23' }}
+            style={{ backgroundColor: '#0D1321' }}
           />
         </View>
       )}

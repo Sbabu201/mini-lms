@@ -46,8 +46,6 @@ function CourseCardComponent({
           transition={300}
           cachePolicy="memory-disk"
         />
-        {/* Overlay gradient */}
-        <View className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t" />
 
         {/* Bookmark Button */}
         <TouchableOpacity
@@ -58,12 +56,12 @@ function CourseCardComponent({
           <Ionicons
             name={isBookmarked ? 'bookmark' : 'bookmark-outline'}
             size={20}
-            color={isBookmarked ? '#8347FF' : '#FFFFFF'}
+            color={isBookmarked ? '#17B07E' : '#FFFFFF'}
           />
         </TouchableOpacity>
 
         {/* Price Badge */}
-        <View className="absolute bottom-3 left-3 bg-primary-500 rounded-xl px-3 py-1.5">
+        <View className="absolute bottom-3 left-3 bg-primary-600 rounded-xl px-3 py-1.5">
           <Text className="text-white font-inter-bold text-sm">
             {formatPrice(course.price)}
           </Text>
@@ -71,7 +69,7 @@ function CourseCardComponent({
 
         {/* Enrolled Badge */}
         {isEnrolled && (
-          <View className="absolute top-3 left-3 bg-green-500 rounded-xl px-3 py-1.5 flex-row items-center">
+          <View className="absolute top-3 left-3 bg-primary-500 rounded-xl px-3 py-1.5 flex-row items-center">
             <Ionicons name="checkmark-circle" size={14} color="#FFFFFF" />
             <Text className="text-white font-inter-semibold text-xs ml-1">
               Enrolled
@@ -116,14 +114,14 @@ function CourseCardComponent({
         {/* Stats Row */}
         <View className="flex-row items-center justify-between">
           <View className="flex-row items-center">
-            <Ionicons name="star" size={14} color="#F59E0B" />
-            <Text className="text-yellow-400 text-sm font-inter-semibold ml-1">
+            <Ionicons name="star" size={14} color="#FFA520" />
+            <Text className="text-accent-400 text-sm font-inter-semibold ml-1">
               {formatRating(course.rating)}
             </Text>
           </View>
 
           <View className="flex-row items-center">
-            <Ionicons name="people-outline" size={14} color="#9F99BD" />
+            <Ionicons name="people-outline" size={14} color="#6B7D96" />
             <Text className="text-dark-300 text-sm font-inter-regular ml-1">
               {formatCount(course.studentsEnrolled)} students
             </Text>
@@ -134,7 +132,7 @@ function CourseCardComponent({
               <Text className="text-dark-400 text-xs font-inter-regular line-through">
                 {formatPrice(course.originalPrice)}
               </Text>
-              <Text className="text-green-400 text-xs font-inter-semibold ml-1">
+              <Text className="text-primary-400 text-xs font-inter-semibold ml-1">
                 {Math.round(course.discountPercentage)}% off
               </Text>
             </View>

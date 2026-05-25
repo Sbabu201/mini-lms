@@ -3,8 +3,6 @@ import {
   TouchableOpacity,
   Text,
   ActivityIndicator,
-  ViewStyle,
-  TextStyle,
 } from 'react-native';
 
 interface ButtonProps {
@@ -70,7 +68,7 @@ export function Button({
       {loading ? (
         <ActivityIndicator
           size="small"
-          color={variant === 'ghost' ? '#8347FF' : '#FFFFFF'}
+          color={variant === 'ghost' ? '#17B07E' : '#FFFFFF'}
         />
       ) : (
         <>

@@ -93,7 +93,7 @@ export default function HomeScreen() {
           {filteredCourses.length} courses available
         </Text>
         <View className="flex-row items-center">
-          <Ionicons name="funnel-outline" size={14} color="#9F99BD" />
+          <Ionicons name="funnel-outline" size={14} color="#6B7D96" />
           <Text className="text-dark-300 text-xs font-inter-regular ml-1">
             Showing all
           </Text>
@@ -151,9 +151,9 @@ export default function HomeScreen() {
           <RefreshControl
             refreshing={state.isRefreshing}
             onRefresh={refreshCourses}
-            tintColor="#8347FF"
-            colors={['#8347FF']}
-            progressBackgroundColor="#1C164D"
+            tintColor="#17B07E"
+            colors={['#17B07E']}
+            progressBackgroundColor="#141C2B"
           />
         }
         onEndReached={handleLoadMore}
