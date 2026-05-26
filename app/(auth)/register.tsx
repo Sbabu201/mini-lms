@@ -1,69 +1,67 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   View,
   Text,
   ScrollView,
   TouchableOpacity,
-  Alert,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 import { Link, router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
+import { useForm, Controller } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useAuth } from '../../src/stores/auth.store';
 import { Input } from '../../src/components/ui/Input';
 import { Button } from '../../src/components/ui/Button';
 
+// ── Zod Schema ──────────────────────────────────────────────────────
+const registerSchema = z
+  .object({
+    email: z
+      .string()
+      .min(1, 'Email is required')
+      .email('Enter a valid email address'),
+    username: z
+      .string()
+      .min(1, 'Username is required')
+      .min(3, 'Username must be at least 3 characters'),
+    password: z
+      .string()
+      .min(1, 'Password is required')
+      .min(6, 'Password must be at least 6 characters'),
+    confirmPassword: z
+      .string()
+      .min(1, 'Please confirm your password'),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: 'Passwords do not match',
+    path: ['confirmPassword'],
+  });
+
+type RegisterFormData = z.infer<typeof registerSchema>;
+
+// ── Screen ──────────────────────────────────────────────────────────
 export default function RegisterScreen() {
-  const { register, state, clearError } = useAuth();
-  const [email, setEmail] = useState('');
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const { register: registerUser, state, clearError } = useAuth();
 
-  const [errors, setErrors] = useState<{
-    email?: string;
-    username?: string;
-    password?: string;
-    confirmPassword?: string;
-  }>({});
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<RegisterFormData>({
+    resolver: zodResolver(registerSchema),
+    defaultValues: { email: '', username: '', password: '', confirmPassword: '' },
+  });
 
-  const validate = (): boolean => {
-    const newErrors: typeof errors = {};
-
-    if (!email.trim()) {
-      newErrors.email = 'Email is required';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      newErrors.email = 'Enter a valid email address';
-    }
-
-    if (!username.trim()) {
-      newErrors.username = 'Username is required';
-    } else if (username.trim().length < 3) {
-      newErrors.username = 'Username must be at least 3 characters';
-    }
-
-    if (!password) {
-      newErrors.password = 'Password is required';
-    } else if (password.length < 6) {
-      newErrors.password = 'Password must be at least 6 characters';
-    }
-
-    if (password !== confirmPassword) {
-      newErrors.confirmPassword = 'Passwords do not match';
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleRegister = async () => {
-    if (!validate()) return;
-
+  const onSubmit = async (data: RegisterFormData) => {
     try {
-      await register({
-        email: email.trim(),
-        username: username.trim(),
-        password,
+      await registerUser({
+        email: data.email.trim(),
+        username: data.username.trim(),
+        password: data.password,
         role: 'ADMIN',
       });
       router.replace('/(tabs)/home');
@@ -74,11 +72,15 @@ export default function RegisterScreen() {
 
   return (
     <SafeAreaView className="flex-1 bg-dark-950">
-      <ScrollView
-        contentContainerStyle={{ flexGrow: 1 }}
-        keyboardShouldPersistTaps="handled"
-        showsVerticalScrollIndicator={false}
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        className="flex-1"
       >
+        <ScrollView
+          contentContainerStyle={{ flexGrow: 1 }}
+          keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}
+        >
         <View className="flex-1 px-6 justify-center py-8">
           {/* Header */}
           <View className="items-center mb-8">
@@ -106,61 +108,77 @@ export default function RegisterScreen() {
             </View>
           ) : null}
 
-          {/* Form */}
-          <Input
-            label="Email"
-            value={email}
-            onChangeText={(text) => {
-              setEmail(text);
-              if (errors.email) setErrors((e) => ({ ...e, email: undefined }));
-            }}
-            placeholder="you@example.com"
-            icon="mail-outline"
-            keyboardType="email-address"
-            error={errors.email}
+          {/* Form — React Hook Form + Zod */}
+          <Controller
+            control={control}
+            name="email"
+            render={({ field: { onChange, onBlur, value } }) => (
+              <Input
+                label="Email"
+                value={value}
+                onChangeText={onChange}
+                onBlur={onBlur}
+                placeholder="you@example.com"
+                icon="mail-outline"
+                keyboardType="email-address"
+                error={errors.email?.message}
+              />
+            )}
           />
 
-          <Input
-            label="Username"
-            value={username}
-            onChangeText={(text) => {
-              setUsername(text);
-              if (errors.username) setErrors((e) => ({ ...e, username: undefined }));
-            }}
-            placeholder="Choose a username"
-            icon="person-outline"
-            error={errors.username}
+          <Controller
+            control={control}
+            name="username"
+            render={({ field: { onChange, onBlur, value } }) => (
+              <Input
+                label="Username"
+                value={value}
+                onChangeText={onChange}
+                onBlur={onBlur}
+                placeholder="Choose a username"
+                icon="person-outline"
+                error={errors.username?.message}
+              />
+            )}
           />
 
-          <Input
-            label="Password"
-            value={password}
-            onChangeText={(text) => {
-              setPassword(text);
-              if (errors.password) setErrors((e) => ({ ...e, password: undefined }));
-            }}
-            placeholder="Min. 6 characters"
-            icon="lock-closed-outline"
-            secureTextEntry
-            error={errors.password}
+          <Controller
+            control={control}
+            name="password"
+            render={({ field: { onChange, onBlur, value } }) => (
+              <Input
+                label="Password"
+                value={value}
+                onChangeText={onChange}
+                onBlur={onBlur}
+                placeholder="Min. 6 characters"
+                icon="lock-closed-outline"
+                secureTextEntry
+                error={errors.password?.message}
+              />
+            )}
           />
 
-          <Input
-            label="Confirm Password"
-            value={confirmPassword}
-            onChangeText={(text) => {
-              setConfirmPassword(text);
-              if (errors.confirmPassword) setErrors((e) => ({ ...e, confirmPassword: undefined }));
-            }}
-            placeholder="Re-enter your password"
-            icon="shield-checkmark-outline"
-            secureTextEntry
-            error={errors.confirmPassword}
+          <Controller
+            control={control}
+            name="confirmPassword"
+            render={({ field: { onChange, onBlur, value } }) => (
+              <Input
+                label="Confirm Password"
+                value={value}
+                onChangeText={onChange}
+                onBlur={onBlur}
+                placeholder="Re-enter your password"
+                icon="shield-checkmark-outline"
+                secureTextEntry
+                error={errors.confirmPassword?.message}
+              />
+            )}
           />
 
           <Button
             title="Create Account"
-            onPress={handleRegister}
+            onPress={handleSubmit(onSubmit)}
             loading={state.isLoading}
             className="mt-4"
             size="lg"
@@ -181,6 +199,7 @@ export default function RegisterScreen() {
           </View>
         </View>
       </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }

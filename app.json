@@ -5,7 +5,8 @@
     "version": "1.0.0",
     "orientation": "default",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "automatic",
+    "userInterfaceStyle": "dark",
+    "backgroundColor": "#0D1321",
     "scheme": "learnhub",
     "plugins": [
       "expo-router",

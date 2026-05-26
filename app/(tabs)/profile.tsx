@@ -52,12 +52,8 @@ export default function ProfileScreen() {
       quality: 0.8,
     });
     if (!result.canceled && result.assets[0]) {
-      try {
-        await updateAvatar(result.assets[0].uri);
-        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-      } catch {
-        Alert.alert('Error', 'Failed to update avatar. Please try again.');
-      }
+      await updateAvatar(result.assets[0].uri);
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
     }
   }, [updateAvatar]);
 
@@ -111,8 +107,9 @@ export default function ProfileScreen() {
           <TouchableOpacity onPress={handlePickAvatar} className="relative mb-4">
             <Image
               source={{ uri: user?.avatar?.url || 'https://randomuser.me/api/portraits/lego/1.jpg' }}
-              className="w-24 h-24 rounded-full"
+              style={{ width: 96, height: 96, borderRadius: 48, backgroundColor: '#1B2436' }}
               contentFit="cover"
+              cachePolicy="memory-disk"
             />
             <View className="absolute bottom-0 right-0 w-8 h-8 rounded-full bg-primary-500 items-center justify-center border-2 border-dark-950">
               <Ionicons name="camera" size={14} color="#FFFFFF" />

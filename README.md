@@ -248,3 +248,7 @@ cd android
 ## 📄 License
 
 MIT License — Built as a technical assignment for House of EdTech.
+
+
+
+

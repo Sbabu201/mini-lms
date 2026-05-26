@@ -1,7 +1,7 @@
 // @ts-ignore - NativeWind CSS import
 import '../global.css';
 import React, { useEffect, useCallback } from 'react';
-import { View, KeyboardAvoidingView, Platform } from 'react-native';
+import { View } from 'react-native';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import * as SplashScreen from 'expo-splash-screen';
@@ -50,23 +50,21 @@ export default function RootLayout() {
       <AppProvider>
         <AuthProvider>
           <CourseProvider>
-            <KeyboardAvoidingView
-              behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+            <View
               className="flex-1"
               style={{ backgroundColor: '#0D1321' }}
+              onLayout={onLayoutRootView}
             >
-              <View className="flex-1 bg-dark-950" onLayout={onLayoutRootView}>
-                <StatusBar style="light" />
-                <OfflineBanner />
-                <Stack
-                  screenOptions={{
-                    headerShown: false,
-                    contentStyle: { backgroundColor: '#0D1321' },
-                    animation: 'slide_from_right',
-                  }}
-                />
-              </View>
-            </KeyboardAvoidingView>
+              <StatusBar style="light" />
+              <OfflineBanner />
+              <Stack
+                screenOptions={{
+                  headerShown: false,
+                  contentStyle: { backgroundColor: '#0D1321' },
+                  animation: 'slide_from_right',
+                }}
+              />
+            </View>
           </CourseProvider>
         </AuthProvider>
       </AppProvider>

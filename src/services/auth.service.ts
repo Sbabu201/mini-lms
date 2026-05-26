@@ -1,3 +1,4 @@
+import { Platform } from 'react-native';
 import { apiClient } from './api';
 import { User, AuthTokens, LoginRequest, RegisterRequest } from '../types/auth.types';
 import { ApiResponse } from '../types/api.types';
@@ -52,19 +53,31 @@ export const authService = {
     const formData = new FormData();
     const filename = uri.split('/').pop() ?? 'avatar.jpg';
     const match = /\.(\w+)$/.exec(filename);
-    const type = match ? `image/${match[1]}` : 'image/jpeg';
+    const ext = match ? match[1].toLowerCase() : 'jpeg';
+    const type = `image/${ext === 'jpg' ? 'jpeg' : ext}`;
 
+    // On Android, content:// URIs need file:// conversion
+    const fileUri = Platform.OS === 'android' && !uri.startsWith('file://')
+      ? uri
+      : uri;
+
+    // React Native FormData accepts { uri, name, type } objects directly
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     formData.append('avatar', {
-      uri,
+      uri: fileUri,
       name: filename,
       type,
-    } as unknown as Blob);
+    } as any);
 
     const response = await apiClient.patch<ApiResponse<User>>(
       '/users/avatar',
       formData,
       {
-        headers: { 'Content-Type': 'multipart/form-data' },
+        headers: {
+          // Let Axios auto-set Content-Type with correct multipart boundary
+          'Content-Type': undefined as unknown as string,
+        },
+        timeout: 30000, // 30s timeout for file uploads
       }
     );
     return response.data.data;

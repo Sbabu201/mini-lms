@@ -66,27 +66,27 @@ function CourseCardComponent({
             {formatPrice(course.price)}
           </Text>
         </View>
-
-        {/* Enrolled Badge */}
-        {isEnrolled && (
-          <View className="absolute top-3 left-3 bg-primary-500 rounded-xl px-3 py-1.5 flex-row items-center">
-            <Ionicons name="checkmark-circle" size={14} color="#FFFFFF" />
-            <Text className="text-white font-inter-semibold text-xs ml-1">
-              Enrolled
-            </Text>
-          </View>
-        )}
       </View>
 
       {/* Content */}
       <View className="p-4">
-        {/* Category */}
-        <Badge
-          label={getCategoryLabel(course.category)}
-          variant="primary"
-          size="sm"
-          className="self-start mb-2"
-        />
+        {/* Category & Enrollment Status */}
+        <View className="flex-row items-center mb-2" style={{ gap: 8 }}>
+          <Badge
+            label={getCategoryLabel(course.category)}
+            variant="primary"
+            size="sm"
+            className="self-start"
+          />
+          {isEnrolled && (
+            <Badge
+              label="Enrolled"
+              variant="success"
+              size="sm"
+              className="self-start"
+            />
+          )}
+        </View>
 
         {/* Title */}
         <Text className="text-white text-lg font-inter-bold mb-1" numberOfLines={2}>

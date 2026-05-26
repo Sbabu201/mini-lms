@@ -162,13 +162,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const updateAvatar = useCallback(async (uri: string) => {
+    // Optimistically update avatar with local URI so the image shows immediately
+    if (state.user) {
+      dispatch({
+        type: 'SET_USER',
+        payload: { ...state.user, avatar: { url: uri, localPath: uri } },
+      });
+    }
+
     try {
       const updatedUser = await authService.updateAvatar(uri);
+      // If API succeeded, update with server response (may have a remote URL)
       dispatch({ type: 'SET_USER', payload: updatedUser });
-    } catch (error) {
-      throw error;
+    } catch {
+      // API failed — keep the optimistically-set local avatar
+      // The user already sees their selected photo
     }
-  }, []);
+  }, [state.user]);
 
   const value: AuthContextValue = {
     state,

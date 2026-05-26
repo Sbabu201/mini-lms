@@ -127,6 +127,10 @@ export default function WebViewScreen() {
     webViewRef.current?.reload();
   }, []);
 
+  const handleBack = useCallback(() => {
+    router.navigate('/(tabs)/home');
+  }, []);
+
   if (!params.courseId) {
     return (
       <SafeAreaView className="flex-1 bg-dark-950" edges={['top']}>
@@ -158,7 +162,7 @@ export default function WebViewScreen() {
     <SafeAreaView className="flex-1 bg-dark-950" edges={['top']}>
       {/* Header */}
       <View className="flex-row items-center px-4 py-3 border-b border-dark-800">
-        <TouchableOpacity onPress={() => router.back()} className="mr-3">
+        <TouchableOpacity onPress={handleBack} className="mr-3">
           <Ionicons name="arrow-back" size={24} color="#FFFFFF" />
         </TouchableOpacity>
         <Text className="text-white text-lg font-inter-semibold flex-1" numberOfLines={1}>

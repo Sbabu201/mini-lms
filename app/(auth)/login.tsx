@@ -1,31 +1,52 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   View,
   Text,
   ScrollView,
   TouchableOpacity,
-  Alert,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 import { Link, router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
+import { useForm, Controller } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useAuth } from '../../src/stores/auth.store';
 import { Input } from '../../src/components/ui/Input';
 import { Button } from '../../src/components/ui/Button';
 
+// ── Zod Schema ──────────────────────────────────────────────────────
+const loginSchema = z.object({
+  username: z
+    .string()
+    .min(1, 'Username is required')
+    .min(3, 'Username must be at least 3 characters'),
+  password: z
+    .string()
+    .min(1, 'Password is required')
+    .min(6, 'Password must be at least 6 characters'),
+});
+
+type LoginFormData = z.infer<typeof loginSchema>;
+
+// ── Screen ──────────────────────────────────────────────────────────
 export default function LoginScreen() {
   const { login, state, clearError } = useAuth();
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
 
-  const handleLogin = async () => {
-    if (!username.trim() || !password.trim()) {
-      Alert.alert('Error', 'Please fill in all fields.');
-      return;
-    }
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: { username: '', password: '' },
+  });
 
+  const onSubmit = async (data: LoginFormData) => {
     try {
-      await login({ username: username.trim(), password });
+      await login({ username: data.username.trim(), password: data.password });
       router.replace('/(tabs)/home');
     } catch {
       // Error is handled by auth store
@@ -34,11 +55,15 @@ export default function LoginScreen() {
 
   return (
     <SafeAreaView className="flex-1 bg-dark-950">
-      <ScrollView
-        contentContainerStyle={{ flexGrow: 1 }}
-        keyboardShouldPersistTaps="handled"
-        showsVerticalScrollIndicator={false}
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        className="flex-1"
       >
+        <ScrollView
+          contentContainerStyle={{ flexGrow: 1 }}
+          keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}
+        >
         <View className="flex-1 px-6 justify-center">
           {/* Logo / Header */}
           <View className="items-center mb-10">
@@ -53,7 +78,7 @@ export default function LoginScreen() {
             </Text>
           </View>
 
-          {/* Error Message */}
+          {/* API Error */}
           {state.error ? (
             <View className="bg-error/10 border border-error/30 rounded-2xl px-4 py-3 mb-4 flex-row items-center">
               <Ionicons name="alert-circle" size={20} color="#EF4444" />
@@ -66,28 +91,44 @@ export default function LoginScreen() {
             </View>
           ) : null}
 
-          {/* Form */}
-          <Input
-            label="Username"
-            value={username}
-            onChangeText={setUsername}
-            placeholder="Enter your username"
-            icon="person-outline"
-            autoCapitalize="none"
+          {/* Form — React Hook Form + Zod */}
+          <Controller
+            control={control}
+            name="username"
+            render={({ field: { onChange, onBlur, value } }) => (
+              <Input
+                label="Username"
+                value={value}
+                onChangeText={onChange}
+                onBlur={onBlur}
+                placeholder="Enter your username"
+                icon="person-outline"
+                autoCapitalize="none"
+                error={errors.username?.message}
+              />
+            )}
           />
 
-          <Input
-            label="Password"
-            value={password}
-            onChangeText={setPassword}
-            placeholder="Enter your password"
-            icon="lock-closed-outline"
-            secureTextEntry
+          <Controller
+            control={control}
+            name="password"
+            render={({ field: { onChange, onBlur, value } }) => (
+              <Input
+                label="Password"
+                value={value}
+                onChangeText={onChange}
+                onBlur={onBlur}
+                placeholder="Enter your password"
+                icon="lock-closed-outline"
+                secureTextEntry
+                error={errors.password?.message}
+              />
+            )}
           />
 
           <Button
             title="Sign In"
-            onPress={handleLogin}
+            onPress={handleSubmit(onSubmit)}
             loading={state.isLoading}
             className="mt-4"
             size="lg"
@@ -108,6 +149,7 @@ export default function LoginScreen() {
           </View>
         </View>
       </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }

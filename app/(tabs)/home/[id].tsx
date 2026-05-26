@@ -56,7 +56,7 @@ export default function CourseDetailScreen() {
 
   const handleViewContent = useCallback(() => {
     if (course) {
-      router.push({
+      router.navigate({
         pathname: '/(tabs)/webview',
         params: {
           courseId: course.id.toString(),
@@ -74,11 +74,19 @@ export default function CourseDetailScreen() {
     }
   }, [course]);
 
+  const handleBack = useCallback(() => {
+    if (router.canGoBack()) {
+      router.back();
+    } else {
+      router.navigate('/(tabs)/home');
+    }
+  }, []);
+
   if (!course) {
     return (
       <SafeAreaView className="flex-1 bg-dark-950 items-center justify-center">
         <Text className="text-white text-lg">Course not found</Text>
-        <TouchableOpacity onPress={() => router.back()} className="mt-4">
+        <TouchableOpacity onPress={handleBack} className="mt-4">
           <Text className="text-primary-400 font-inter-semibold">Go Back</Text>
         </TouchableOpacity>
       </SafeAreaView>
@@ -90,7 +98,7 @@ export default function CourseDetailScreen() {
       {/* ── Fixed Header Bar ── */}
       <View className="flex-row items-center justify-between px-4 py-3 border-b border-dark-800">
         <TouchableOpacity
-          onPress={() => router.back()}
+          onPress={handleBack}
           className="w-10 h-10 rounded-full bg-dark-800 items-center justify-center"
         >
           <Ionicons name="arrow-back" size={22} color="#FFFFFF" />

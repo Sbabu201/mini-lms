@@ -172,21 +172,33 @@ export function CourseProvider({ children }: { children: ReactNode }) {
 
   // Computed: filter courses by search query
   const filteredCourses = React.useMemo(() => {
-    if (!state.searchQuery.trim()) return state.courses;
+    const enriched = state.courses.map((course) => ({
+      ...course,
+      isBookmarked: state.bookmarkedIds.includes(course.id),
+      isEnrolled: state.enrolledIds.includes(course.id),
+    }));
+
+    if (!state.searchQuery.trim()) return enriched;
     const query = state.searchQuery.toLowerCase();
-    return state.courses.filter(
+    return enriched.filter(
       (course) =>
         course.title.toLowerCase().includes(query) ||
         course.description.toLowerCase().includes(query) ||
         course.category.toLowerCase().includes(query) ||
         course.instructor.name.toLowerCase().includes(query)
     );
-  }, [state.courses, state.searchQuery]);
+  }, [state.courses, state.searchQuery, state.bookmarkedIds, state.enrolledIds]);
 
   // Computed: bookmarked courses
   const bookmarkedCourses = React.useMemo(() => {
-    return state.courses.filter((course) => state.bookmarkedIds.includes(course.id));
-  }, [state.courses, state.bookmarkedIds]);
+    return state.courses
+      .filter((course) => state.bookmarkedIds.includes(course.id))
+      .map((course) => ({
+        ...course,
+        isBookmarked: true,
+        isEnrolled: state.enrolledIds.includes(course.id),
+      }));
+  }, [state.courses, state.bookmarkedIds, state.enrolledIds]);
 
   const value: CourseContextValue = {
     state,

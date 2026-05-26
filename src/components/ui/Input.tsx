@@ -6,6 +6,7 @@ interface InputProps {
   label: string;
   value: string;
   onChangeText: (text: string) => void;
+  onBlur?: () => void;
   placeholder?: string;
   error?: string;
   secureTextEntry?: boolean;
@@ -20,6 +21,7 @@ export function Input({
   label,
   value,
   onChangeText,
+  onBlur: onBlurProp,
   placeholder,
   error,
   secureTextEntry = false,
@@ -64,7 +66,10 @@ export function Input({
           autoCapitalize={autoCapitalize}
           editable={editable}
           onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
+          onBlur={() => {
+            setIsFocused(false);
+            onBlurProp?.();
+          }}
           className="flex-1 text-white text-base font-inter-regular py-3.5"
         />
         {secureTextEntry && (
