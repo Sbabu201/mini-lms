@@ -41,10 +41,6 @@ export const notificationService = {
    */
   async requestPermissions(): Promise<boolean> {
     if (!Notifications) {
-      if (__DEV__) {
-        // eslint-disable-next-line no-console
-        console.warn('[NotificationService] Local notifications mocked under Android Expo Go (requires development build / standalone APK).');
-      }
       return false;
     }
 
@@ -66,10 +62,6 @@ export const notificationService = {
     if (bookmarkCount !== APP_CONFIG.BOOKMARK_NOTIFICATION_THRESHOLD) return;
 
     if (!Notifications) {
-      if (__DEV__) {
-        // eslint-disable-next-line no-console
-        console.warn(`[NotificationService] Mocked Bookmark Milestone: ${bookmarkCount} courses bookmarked!`);
-      }
       return;
     }
 
@@ -96,10 +88,6 @@ export const notificationService = {
    */
   async scheduleInactivityReminder(): Promise<void> {
     if (!Notifications) {
-      if (__DEV__) {
-        // eslint-disable-next-line no-console
-        console.warn(`[NotificationService] Mocked Inactivity Reminder scheduled for ${APP_CONFIG.INACTIVITY_REMINDER_HOURS} hours.`);
-      }
       return;
     }
 

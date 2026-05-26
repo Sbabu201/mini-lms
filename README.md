@@ -6,9 +6,13 @@ A production-grade **Mini Learning Management System** built with **React Native
 
 ## 📸 Screenshots
 
-| Login | Course Catalog | Course Details | Profile |
-|-------|---------------|----------------|---------|
-| Dark themed login | Scrollable course list | Full course info | User stats |
+| Login | Register | Explore | Course Details |
+|:---:|:---:|:---:|:---:|
+| ![Login](screenshots/01-login.jpeg) | ![Register](screenshots/02-register.jpeg) | ![Explore](screenshots/03-explore.jpeg) | ![Course Details](screenshots/04-course-detail.jpeg) |
+
+| WebView Content | Bookmarks | Profile | Architecture |
+|:---:|:---:|:---:|:---:|
+| ![WebView](screenshots/05-webview.jpeg) | ![Bookmarks](screenshots/06-bookmarks.jpeg) | ![Profile](screenshots/07-profile.jpeg) | ![Architecture](screenshots/08-architecture.png) |
 
 ---
 
@@ -248,7 +252,4 @@ cd android
 ## 📄 License
 
 MIT License — Built as a technical assignment for House of EdTech.
-
-
-![alt text](login.jpeg) ![alt text](<WhatsApp Image 2026-05-26 at 1.34.39 PM (1).jpeg>) ![alt text](<WhatsApp Image 2026-05-26 at 1.34.39 PM (2).jpeg>) ![alt text](<WhatsApp Image 2026-05-26 at 1.34.39 PM.jpeg>) ![alt text](<WhatsApp Image 2026-05-26 at 1.34.40 PM (1).jpeg>) ![alt text](<WhatsApp Image 2026-05-26 at 1.34.40 PM (2).jpeg>) ![alt text](<WhatsApp Image 2026-05-26 at 1.34.40 PM.jpeg>) ![alt text](<Screenshot 2026-05-26 at 1.33.34 PM.png>)
 

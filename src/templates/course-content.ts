@@ -1,4 +1,16 @@
 /**
+ * Escapes HTML entities to prevent XSS in dynamic template content.
+ */
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+/**
  * Generates the HTML template for the course content WebView.
  * Supports bidirectional communication with React Native:
  * - Native → Web: via `postMessage` and `injectedJavaScriptBeforeContentLoaded` (headers)
@@ -15,13 +27,19 @@ export function generateCourseContentHTML(course: {
   studentsEnrolled: number;
   images: string[];
 }): string {
+  // Escape all dynamic values to prevent XSS
+  const safeTitle = escapeHtml(course.title);
+  const safeDescription = escapeHtml(course.description);
+  const safeCategory = escapeHtml(course.category);
+  const safeInstructor = escapeHtml(course.instructor);
+
   return `
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>${course.title}</title>
+  <title>${safeTitle}</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
@@ -306,8 +324,8 @@ export function generateCourseContentHTML(course: {
   <div id="status-banner" class="status-banner"></div>
 
   <div class="header">
-    <span class="category">${course.category}</span>
-    <h1>${course.title}</h1>
+    <span class="category">${safeCategory}</span>
+    <h1>${safeTitle}</h1>
     <div class="meta">
       <span class="meta-item">⭐ ${course.rating.toFixed(1)}</span>
       <span class="meta-item">👥 ${course.studentsEnrolled.toLocaleString()} students</span>
@@ -332,18 +350,18 @@ export function generateCourseContentHTML(course: {
   </div>
 
   <div class="instructor">
-    <img src="${course.instructorAvatar}" alt="${course.instructor}" />
+    <img src="${course.instructorAvatar}" alt="${safeInstructor}" />
     <div class="instructor-info">
-      <h3>${course.instructor}</h3>
+      <h3>${safeInstructor}</h3>
       <p>Course Instructor</p>
     </div>
   </div>
 
   <div class="section">
     <h2>📖 About This Course</h2>
-    <p>${course.description}</p>
+    <p>${safeDescription}</p>
     <p style="margin-top: 12px;">
-      This comprehensive course covers everything you need to know about ${course.title.toLowerCase()}.
+      This comprehensive course covers everything you need to know about ${safeTitle.toLowerCase()}.
       You'll gain hands-on experience through practical projects, quizzes, and real-world case studies 
       designed by industry experts.
     </p>
@@ -398,7 +416,7 @@ export function generateCourseContentHTML(course: {
 
   <div class="section">
     <h2>🎯 What You'll Learn</h2>
-    <p>✅ Master the core fundamentals of ${course.title}</p>
+    <p>✅ Master the core fundamentals of ${safeTitle}</p>
     <p>✅ Build real-world projects with hands-on exercises</p>
     <p>✅ Understand industry best practices and standards</p>
     <p>✅ Earn a certificate of completion</p>
