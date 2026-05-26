@@ -16,6 +16,14 @@ A production-grade **Mini Learning Management System** built with **React Native
 
 ---
 
+## 🎬 Demo Video
+
+📹 **[Watch the full walkthrough (3-5 min)](https://drive.google.com/file/d/1msy4Os2a_vvPkgU7JV1lpfv2-LAyLUM7/view?usp=sharing)**
+
+Covers: Registration → Login → Course Catalog → Course Details → WebView → Bookmarks → Profile → Offline Mode
+
+---
+
 ## 🚀 Features
 
 ### ✅ Authentication & User Management
@@ -166,7 +174,7 @@ mini-lms/
 
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/mini-lms.git
+git clone https://github.com/Sbabu201/mini-lms.git
 cd mini-lms
 
 # Install dependencies
@@ -253,3 +261,4 @@ cd android
 
 MIT License — Built as a technical assignment for House of EdTech.
 
+**GitHub**: [https://github.com/Sbabu201/mini-lms](https://github.com/Sbabu201/mini-lms)

@@ -16,7 +16,6 @@ import { AuthProvider } from '../src/stores/auth.store';
 import { CourseProvider } from '../src/stores/course.store';
 import { AppProvider } from '../src/stores/app.store';
 import { ErrorBoundary } from '../src/components/ui/ErrorBoundary';
-import { OfflineBanner } from '../src/components/OfflineBanner';
 import { notificationService } from '../src/services/notification.service';
 
 // Keep splash screen visible while loading resources
@@ -56,7 +55,6 @@ export default function RootLayout() {
               onLayout={onLayoutRootView}
             >
               <StatusBar style="light" />
-              <OfflineBanner />
               <Stack
                 screenOptions={{
                   headerShown: false,

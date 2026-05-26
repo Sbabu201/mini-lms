@@ -32,6 +32,7 @@
         "backgroundColor": "#0D1321"
       },
       "package": "com.learnhub.miniapp",
+      "softwareKeyboardLayoutMode": "pan",
       "permissions": [
         "android.permission.NOTIFICATIONS",
         "android.permission.CAMERA",
