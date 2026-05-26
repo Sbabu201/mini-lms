@@ -250,5 +250,5 @@ cd android
 MIT License — Built as a technical assignment for House of EdTech.
 
 
-
+![alt text](login.jpeg) ![alt text](<WhatsApp Image 2026-05-26 at 1.34.39 PM (1).jpeg>) ![alt text](<WhatsApp Image 2026-05-26 at 1.34.39 PM (2).jpeg>) ![alt text](<WhatsApp Image 2026-05-26 at 1.34.39 PM.jpeg>) ![alt text](<WhatsApp Image 2026-05-26 at 1.34.40 PM (1).jpeg>) ![alt text](<WhatsApp Image 2026-05-26 at 1.34.40 PM (2).jpeg>) ![alt text](<WhatsApp Image 2026-05-26 at 1.34.40 PM.jpeg>) ![alt text](<Screenshot 2026-05-26 at 1.33.34 PM.png>)
 
